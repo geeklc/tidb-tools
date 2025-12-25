@@ -27,9 +27,8 @@ ${dumplingPath}/dumpling \
   -o ${backupPath}${dateT} \
   -F 256MiB \
   -t 4 \
-  -f 'data_registration.*' \
-  -f 'tzwysso.*' \
-  -f 'tzwd.*' \
+  -f 'test.*' \
+  -f 'test1.*' \
   -L ${logPath}/backup.log
   
   

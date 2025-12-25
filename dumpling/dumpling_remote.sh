@@ -34,7 +34,7 @@ ${dumplingPath}/dumpling \
   --s3.endpoint ${minioServer} \
   -F 256MiB \
   -t 8 \
-  -f test.* \
+  -f 'test.*' \
   -L backup.log
   
   
