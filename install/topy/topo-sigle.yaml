@@ -1,0 +1,34 @@
+# 单节点单副本部署
+global:
+ user: "root"
+ ssh_port: 22
+ deploy_dir: "/data/tidb-deploy"
+ data_dir: "/data/tidb-data"
+
+# # Monitored variables are applied to all the machines.
+monitored:
+ node_exporter_port: 9100
+ blackbox_exporter_port: 9115
+
+server_configs:
+ tidb:
+   instance.tidb_slow_log_threshold: 300
+ tikv:
+   readpool.storage.use-unified-pool: false
+   readpool.coprocessor.use-unified-pool: true
+ pd:
+   replication.enable-placement-rules: true
+   replication.max-replicas: 1
+ tiflash:
+   logger.level: "info"
+
+pd_servers:
+ - host: 10.10.0.199 
+
+tidb_servers:
+ - host: 10.10.0.199 
+
+tikv_servers:
+ - host: 10.10.0.199 
+   port: 20160
+   status_port: 20180

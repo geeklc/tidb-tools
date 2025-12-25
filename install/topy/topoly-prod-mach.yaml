@@ -1,0 +1,197 @@
+global:
+  user: tidb
+  ssh_port: 22
+  systemd_mode: system
+monitored:
+  node_exporter_port: 9100
+  blackbox_exporter_port: 9115
+  deploy_dir: /data1/tidb-deploy/monitor-9100
+  data_dir: /data1/tidb-data/monitor-9100
+  log_dir: /data1/tidb-deploy/monitor-9100/log
+server_configs:
+  tidb:
+    tikv-client.region-cache-ttl: 1200
+    log.slow-threshold: 300
+    log.file.max-size: 300
+    log.file.max-backups: 15
+    log.file.compression: gzip
+    temp-dir: /data1/tidb-data/tidb-tmp-4000
+  tikv:
+    log.file.max-size: 300
+    log.file.max-backups: 15
+    raftstore.raft-base-tick-interval: 200ms
+    raftstore.raft-election-timeot-ticks: 1
+    raftstore.raft-heartbeat-ticks: 1
+    readpool.unified.max-thread-count: 20
+    raftstore.raft-store-max-leader-lease: 800ms
+    rocksdb.defaultcf.titan.blob-file-compression: zstd
+    rocksdb.defaultcf.titan.min-blob-size: 2KB
+    rocksdb.titan.enabled: true
+    storage.block-cache.capacity: 28GB
+    readpool.storage.use-unified-pool: false
+    readpool.coprocessor.use-unified-pool: true
+  pd:
+    log.file.max-size: 300
+    log.file.max-backups: 15
+    replication.location-labels: ["zone", "rack", "host"]
+    replication.isolation-level: "rack"
+    schedule.leader-schedule-limit: 4
+    schedule.region-schedule-limit: 2048
+    schedule.replica-schedule-limit: 64
+pd_servers:
+- host: 192.168.0.101
+  ssh_port: 22
+  name: pd-1
+  client_port: 2379
+  peer_port: 2380
+  deploy_dir: /data1/tidb-deploy/pd-2379
+  data_dir: /data1/tidb-data/pd-2379
+  log_dir: /data1/tidb-deploy/pd-2379/log
+  numa_node: "0"
+- host: 192.168.0.102
+  ssh_port: 22
+  name: pd-2
+  client_port: 2379
+  peer_port: 2380
+  deploy_dir: /data1/tidb-deploy/pd-2379
+  data_dir: /data1/tidb-data/pd-2379
+  log_dir: /data1/tidb-deploy/pd-2379/log
+  numa_node: "0"
+- host: 192.168.0.103
+  ssh_port: 22
+  name: pd-3
+  client_port: 2379
+  peer_port: 2380
+  deploy_dir: /data1/tidb-deploy/pd-2379
+  data_dir: /data1/tidb-data/pd-2379
+  log_dir: /data1/tidb-deploy/pd-2379/log
+  numa_node: "0"
+tidb_servers:
+- host: 192.168.0.101
+  ssh_port: 22
+  port: 4000
+  status_port: 10080
+  deploy_dir: /data2/tidb-deploy/tidb-4000
+  log_dir: /data2/tidb-deploy/tidb-4000/log
+  numa_node: "1"
+- host: 192.168.0.102
+  ssh_port: 22
+  port: 4000
+  status_port: 10080
+  deploy_dir: /data2/tidb-deploy/tidb-4000
+  log_dir: /data2/tidb-deploy/tidb-4000/log
+  numa_node: "1"
+- host: 192.168.0.103
+  ssh_port: 22
+  port: 4000
+  status_port: 10080
+  deploy_dir: /data2/tidb-deploy/tidb-4000
+  log_dir: /data2/tidb-deploy/tidb-4000/log
+  numa_node: "1"
+tikv_servers:
+- host: 192.168.0.101
+  ssh_port: 22
+  port: 20160
+  status_port: 20180
+  deploy_dir: /data1/tidb-deploy/tikv-20180
+  data_dir: /data1/tidb-data/tikv-20180
+  log_dir: /data1/tidb-deploy/tikv-20180/log
+  numa_node: "2"
+  config:
+    server.labels: {"zone": "z1", "rack":"r1", host: "192.168.0.101-20180" }
+- host: 192.168.0.101
+  ssh_port: 22
+  port: 20161
+  status_port: 20181
+  deploy_dir: /data2/tidb-deploy/tikv-20181
+  data_dir: /data2/tidb-data/tikv-20181
+  log_dir: /data2/tidb-deploy/tikv-20181/log
+  numa_node: "3"
+  config:
+    server.labels: {"zone": "z1", "rack":"r1", host: "192.168.0.101-20181" }
+- host: 192.168.0.102
+  ssh_port: 22
+  port: 20160
+  status_port: 20180
+  deploy_dir: /data1/tidb-deploy/tikv-20180
+  data_dir: /data1/tidb-data/tikv-20180
+  log_dir: /data1/tidb-deploy/tikv-20180/log
+  numa_node: "2"
+  config:
+    server.labels: {"zone": "z1", "rack":"r2", host: "192.168.0.102-20180" }
+- host: 192.168.0.102
+  ssh_port: 22
+  port: 20161
+  status_port: 20181
+  deploy_dir: /data2/tidb-deploy/tikv-20181
+  data_dir: /data2/tidb-data/tikv-20181
+  log_dir: /data2/tidb-deploy/tikv-20181/log
+  numa_node: "3"
+  config:
+    server.labels: {"zone": "z1", "rack":"r2", host: "192.168.0.102-20181" }
+- host: 192.168.0.103
+  ssh_port: 22
+  port: 20160
+  status_port: 20180
+  deploy_dir: /data1/tidb-deploy/tikv-20180
+  data_dir: /data1/tidb-data/tikv-20180
+  log_dir: /data1/tidb-deploy/tikv-20180/log
+  numa_node: "2"
+  config:
+    server.labels: {"zone": "z1", "rack":"r3", host: "192.168.0.103-20180" }
+- host: 192.168.0.103
+  ssh_port: 22
+  port: 20161
+  status_port: 20181
+  deploy_dir: /data2/tidb-deploy/tikv-20181
+  data_dir: /data2/tidb-data/tikv-20181
+  log_dir: /data2/tidb-deploy/tikv-20181/log
+  numa_node: "3"
+  config:
+    server.labels: {"zone": "z1", "rack":"r3", host: "192.168.0.103-20181" }
+
+tiproxy_servers:
+- host: 192.168.0.102
+  deploy_dir: "/data1/tiproxy-deploy"
+  port: 6000
+  status_port: 3080
+  numa_node: "0"
+  config:
+    ha.virtual-ip: "192.168.0.201/24"
+    ha.interface: "eth0"
+- host: 192.168.0.103
+  deploy_dir: "/data1/tiproxy-deploy"
+  port: 6000
+  status_port: 3080
+  numa_node: "0"
+  config:
+    ha.virtual-ip: "192.168.0.201/24"
+    ha.interface: "eth0"
+
+monitoring_servers:
+- host: 192.168.0.101
+  ssh_port: 22
+  port: 9080
+  ng_port: 12020
+  deploy_dir: /data2/tidb-deploy/prometheus-9080
+  data_dir: /data2/prometheus-9080
+  log_dir: /data2/tidb-deploy/prometheus-9080/log
+  external_alertmanagers: []
+grafana_servers:
+- host: 192.168.0.101
+  ssh_port: 22
+  port: 3000
+  deploy_dir: /data2/tidb-deploy/grafana-3000
+  username: admin
+  password: admin@123
+  anonymous_enable: false
+  root_url: ""
+  domain: ""
+alertmanager_servers:
+- host: 192.168.0.101
+  ssh_port: 22
+  web_port: 9093
+  cluster_port: 9094
+  deploy_dir: /data2/tidb-deploy/alertmanager-9093
+  data_dir: /data2/alertmanager-9093
+  log_dir: /data2/tidb-deploy/alertmanager-9093/log
