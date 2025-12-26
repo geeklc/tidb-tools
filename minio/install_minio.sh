@@ -40,7 +40,7 @@ fi
 
 chown -R minio:minio ${MINIO_DATA_DIR}
 chown -R minio:minio ${MINIO_BIN}
-chown +x ${MINIO_BIN}
+chmod +x ${MINIO_BIN}
 
 # 4. 创建环境变量配置文件
 cat > /etc/default/minio <<EOF

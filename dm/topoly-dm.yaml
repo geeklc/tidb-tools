@@ -1,0 +1,78 @@
+# Global variables are applied to all deployments and as the default value of
+# them if the specific deployment value missing.
+global:
+  user: "tidb"
+  # systemd_mode: "system"
+  ssh_port: 22
+  deploy_dir: "/opt/tidb/dm-deploy"
+  data_dir: "/opt/tidb/dm-data"
+
+server_configs:
+  master:
+    log-level: info
+    # rpc-timeout: "30s"
+    # rpc-rate-limit: 10.0
+    # rpc-rate-burst: 40
+  worker:
+    log-level: info
+
+master_servers:
+  - host: 192.168.0.1
+    name: master1
+    ssh_port: 22
+    port: 8261
+    peer_port: 8291
+    deploy_dir: "/opt/tidb/dm-deploy/dm-master-8261"
+    data_dir: "/opt/tidb/dm-data/dm-master-8261"
+    log_dir: "/opt/tidb/dm-deploy/dm-master-8261/log"
+  - host: 192.168.0.2
+    name: master2
+    ssh_port: 22
+    port: 8261
+    peer_port: 8291
+    deploy_dir: "/opt/tidb/dm-deploy/dm-master-8261"
+    data_dir: "/opt/tidb/dm-data/dm-master-8261"
+    log_dir: "/opt/tidb/dm-deploy/dm-master-8261/log"
+  - host: 192.168.0.3
+    name: master3
+    ssh_port: 22
+    port: 8261
+    peer_port: 8291
+    deploy_dir: "/opt/tidb/dm-deploy/dm-master-8261"
+    data_dir: "/opt/tidb/dm-data/dm-master-8261"
+    log_dir: "/opt/tidb/dm-deploy/dm-master-8261/log"
+
+worker_servers:
+  - host: 192.168.0.1
+    ssh_port: 22
+    port: 8262
+    deploy_dir: "/opt/tidb/dm-deploy/dm-worker-8262"
+    log_dir: "/opt/tidb/dm-deploy/dm-worker-8262/log"
+  - host: 192.168.0.2
+    ssh_port: 22
+    port: 8262
+    deploy_dir: "/opt/tidb/dm-deploy/dm-worker-8262"
+    log_dir: "/opt/tidb/dm-deploy/dm-worker-8262/log"
+  - host: 192.168.0.3
+    ssh_port: 22
+    port: 8262
+    deploy_dir: "/opt/tidb/dm-deploy/dm-worker-8262"
+    log_dir: "/opt/tidb/dm-deploy/dm-worker-8262/log"
+
+monitoring_servers:
+  - host: 192.168.0.1
+    ssh_port: 22
+    port: 9090
+    deploy_dir: "/opt/tidb/tidb-deploy/prometheus-8249"
+    data_dir: "/opt/tidb/tidb-data/prometheus-8249"
+    log_dir: "/opt/tidb/tidb-deploy/prometheus-8249/log"
+    # prometheus rule dir on TiUP machine
+
+
+grafana_servers:
+  - host: 192.168.0.1
+    port: 3000
+    deploy_dir: /opt/tidb/tidb-deploy/grafana-3000
+    username: admin
+    password: admin@123
+    anonymous_enable: false
