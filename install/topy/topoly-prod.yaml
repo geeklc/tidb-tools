@@ -25,7 +25,7 @@ server_configs:
     readpool.unified.max-thread-count: 20
     raftstore.raft-store-max-leader-lease: 800ms
     rocksdb.defaultcf.titan.blob-file-compression: zstd
-    rocksdb.defaultcf.titan.min-blob-size: 2KB
+    rocksdb.defaultcf.titan.min-blob-size: 32KB
     rocksdb.titan.enabled: true
     readpool.storage.use-unified-pool: false
     readpool.coprocessor.use-unified-pool: true
@@ -46,6 +46,7 @@ pd_servers:
   deploy_dir: /data1/tidb-deploy/pd-2379
   data_dir: /data1/tidb-data/pd-2379
   log_dir: /data1/tidb-deploy/pd-2379/log
+  arch: amd64
 - host: 192.168.0.102
   ssh_port: 22
   name: pd-2
@@ -54,6 +55,7 @@ pd_servers:
   deploy_dir: /data1/tidb-deploy/pd-2379
   data_dir: /data1/tidb-data/pd-2379
   log_dir: /data1/tidb-deploy/pd-2379/log
+  arch: arm64
 - host: 192.168.0.103
   ssh_port: 22
   name: pd-3

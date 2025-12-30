@@ -25,7 +25,7 @@ server_configs:
     readpool.unified.max-thread-count: 20
     raftstore.raft-store-max-leader-lease: 800ms
     rocksdb.defaultcf.titan.blob-file-compression: zstd
-    rocksdb.defaultcf.titan.min-blob-size: 2KB
+    rocksdb.defaultcf.titan.min-blob-size: 32KB
     rocksdb.titan.enabled: true
     storage.block-cache.capacity: 28GB
     readpool.storage.use-unified-pool: false
