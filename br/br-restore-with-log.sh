@@ -16,8 +16,11 @@ filters="!INFORMATION_SCHEMA.*,!METRICS_SCHEMA.*,!PERFORMANCE_SCHEMA.*,!mysql.*,
 crypt_method="aes128-ctr"
 crypt_key="fc125f1d7ca3a51d1a02eefe3941d86f"
 
-snapshot_file_name="snapshot-20260112"
+snapshot_file_name="snapshot-"
+log_file_name=""
 
+# 恢复时间点
+restored_ts="2025-05-15 18:00:00+0800"
 
 ######################################
 # 构造加密参数
@@ -25,6 +28,8 @@ snapshot_file_name="snapshot-20260112"
 extra_args_log=()
 if [ -n "$crypt_method" ]; then
   extra_args_log+=(
+    --log.crypter.method "$crypt_method"
+    --log.crypter.key "$crypt_key"
     --crypter.method "$crypt_method"
     --crypter.key "$crypt_key"
   )
@@ -45,9 +50,11 @@ fi
 ######################################
 # 执行恢复
 ######################################
-"${br_path}br" restore full \
+"${br_path}br" restore point \
   --pd="$pd_path" \
-  --storage="s3://${s3_bucket_name}/${snapshot_file_name}?access-key=${s3_access_key}&secret-access-key=${s3_secret_access_key}" \
+  --storage="s3://${s3_bucket_name}/log-backup?access-key=${s3_access_key}&secret-access-key=${s3_secret_access_key}" \
+  --full-backup-storage="s3://${s3_bucket_name}/${snapshot_file_name}?access-key=${s3_access_key}&secret-access-key=${s3_secret_access_key}" \
+  --restored-ts="$restored_ts" \
   --s3.endpoint="$s3_server" \
   "${extra_args_log[@]}" \
   "${extra_filters[@]}" \
