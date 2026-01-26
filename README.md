@@ -46,7 +46,7 @@ br-restore.sh，支持备份数据的恢复。
 
 ## 6. mysql-client目录
 
-这里维护了linux中离线安装mysql client所用的所有rpm安装文件，把压缩包copy到服务器上，执行rpm -ivh --replacefiles --replacepkgs \*.rpm即可安装成功。
+这里维护了linux中离线安装mysql client所用的所有rpm安装文件，把压缩包copy到服务器上，执行rpm -ivh --replacefiles --replacepkgs *.rpm即可安装成功。
 
 ## 7. opt目录
 

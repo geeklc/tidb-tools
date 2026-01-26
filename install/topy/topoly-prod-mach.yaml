@@ -10,12 +10,15 @@ monitored:
   log_dir: /data1/tidb-deploy/monitor-9100/log
 server_configs:
   tidb:
+    graceful-wait-before-shutdown: 30
     tikv-client.region-cache-ttl: 1200
     log.slow-threshold: 300
     log.file.max-size: 300
     log.file.max-backups: 15
     log.file.compression: gzip
     temp-dir: /data1/tidb-data/tidb-tmp-4000
+  tiproxy:
+    proxy.graceful-wait-before-shutdown: 30
   tikv:
     log.file.max-size: 300
     log.file.max-backups: 15
@@ -176,6 +179,7 @@ monitoring_servers:
   deploy_dir: /data2/tidb-deploy/prometheus-9080
   data_dir: /data2/prometheus-9080
   log_dir: /data2/tidb-deploy/prometheus-9080/log
+  storage_retention: 30d
   external_alertmanagers: []
 grafana_servers:
 - host: 192.168.0.101

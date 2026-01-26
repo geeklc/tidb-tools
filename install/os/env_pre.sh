@@ -13,6 +13,8 @@ tidbpass=tidb
 #创建磁盘分区
 parted -s -a optimal ${disk} mklabel gpt -- mkpart primary ext4 1 -1
 
+sleep 1
+
 disk1=${disk}1
 #格式化磁盘
 mkfs.ext4 ${disk1}
