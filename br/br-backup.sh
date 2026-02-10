@@ -2,31 +2,31 @@
 
 ######参数#########
 # s3对象存储的秘钥key
-s3_access_key=xljtCAbfSIWeKJHBv3az
+s3_access_key=St2MmuF3OFxqY0yaeDye
 # s3对象存储的秘钥value
-s3_secret_access_key=r9KwGrIii26aB23sKTQZajCYAHAcqDRd7XfuXY02
+s3_secret_access_key=Le2VqDZpLQ4EbQVj8afSPHQEd1V2qFCECa0LeWrY
 # s3对象存储的bucket
-s3_bucket_name=backup
+s3_bucket_name=ybt
 # s3对象存储的地址 http://host:port
-s3_server=http://192.168.0.188:9000
+s3_server=http://127.0.0.1:9000
 # minio客户端地址，需要新版本的客户端，结尾带/
 minio_client_path=/opt/soft/
 # br执行文件的路径，结尾带/
-br_path=/opt/soft/
+br_path=/data1/soft/br/
 # 执行log地址，结尾带/
-log_path=/opt/soft/
+log_path=/data1/soft/br/
 # tidb的pd地址ip:port，多个端口用英文逗号分隔
-pd_path=192.168.0.175:2379
+pd_path=10.247.66.56:2379
 # 快照备份周期，0周日、 1周一、 2周二、 3周三、 4周四、 5周五、 6周六， 多个日期用英文逗号分隔
-backup_period=0,3,4
+backup_period=0,1,2,3,4,5,6
 # 保留日志的时长，单位天
 keep_days=1
 # 需要备份的数据库，比如foo.*,表示备份foo库下的所有表，多个条件用英文逗号分隔，设置为空时则不做过滤条件
-filters="db_monitor.*,kb_info.*,rag_test.*,zhql.*"
+filters="dsp_gdp_report.*"
 # 备份数据加密方法：aes128-ctr、aes192-ctr 和 aes256-ctr，日志加密仅在v8.4.0后版本才支持，当设置为空时，则不需要加密
-crypt_method=aes128-ctr
+crypt_method=
 # 加密密钥，十六进制字符串格式，aes128-ctr 对应 128 位（16 字节）密钥长度，aes192-ctr 为 24 字节，aes256-ctr 为 32 字节
-crypt_key=fc125f1d7ca3a51d1a02eefe3941d86f
+crypt_key=
 
 
 
