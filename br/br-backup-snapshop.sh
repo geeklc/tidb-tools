@@ -57,3 +57,6 @@ backup_snapshot(){
   eval "$cmd"
   log_file "全量备份结束...."
 }
+
+
+backup_snapshot
