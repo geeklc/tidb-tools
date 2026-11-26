@@ -17,7 +17,10 @@ server_configs:
     log.file.max-backups: 15
     log.file.compression: gzip
     txn-entry-size-limit: 25MiB
+    # 分布式框架所用的存储
     temp-dir: /data1/tidb-data/tidb-tmp-4000
+    # tidb查询超过内存配额，且启用了 tidb_enable_tmp_storage_on_oom，支持落盘的算子把中间结果写到该路径
+    tmp-storage-path: /data1/query-tmp-store
   tiproxy:
     proxy.graceful-wait-before-shutdown: 30
   tikv:
